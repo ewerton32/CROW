@@ -7,16 +7,17 @@
       <name>crud</name>
       <tag-class>br.edu.garanhuns.ifpe.crow.tags.BasicCrud</tag-class>
       <body-content>empty</body-content>
+    
       
       <attribute>
           <name>usedBean</name>
-          <required>true</required>
+          <required>false</required>
           <rtexprvalue>true</rtexprvalue>
       </attribute>
       
       <attribute>
           <name>usedController</name>
-          <required>true</required>
+          <required>false</required>
           <rtexprvalue>true</rtexprvalue>
       </attribute>
   </tag>
