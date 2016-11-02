@@ -98,6 +98,74 @@ public class CrudElements<T> {
         return sb.toString();
     }
     
+    private String select(String name, String form_id, String[] value) {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(": <select form=\"");
+        sb.append(form_id);
+        sb.append("\" name=\"");
+        sb.append(name);
+        sb.append("\">");
+        //iteração para gerar options do select
+        for (int i = 0; i <= value.length - 1; i++) {
+
+            sb.append("<option ");
+            sb.append("value=\"");
+            sb.append(value[i]);
+            sb.append("\">");
+            sb.append(value[i]);
+            sb.append("</option>");
+        }//fim da iteração
+        sb.append("</select>");
+        return sb.toString();
+    }
+    
+     private String datalist(String name, String form_id, String[] value, String label) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(label);
+        sb.append(": <datalist form=\"");
+        sb.append(form_id);
+        sb.append("\" name=\"");
+        sb.append(name);
+        sb.append("\">");
+        //iteração para gerar options do datalist
+        for (int i = 0; i <= value.length - 1; i++) {
+
+            sb.append("<option ");
+            sb.append("value=\"");
+            sb.append(value[i]);
+            sb.append("\">");
+            sb.append(value[i]);
+            sb.append("</option>");
+        }//fim da iteração
+        sb.append("</datalist>");
+        return sb.toString();
+    }
+       private String datalist(String name, String form_id, String[] value) {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(": <datalist form=\"");
+        sb.append(form_id);
+        sb.append("\" name=\"");
+        sb.append(name);
+        sb.append("\">");
+        //iteração para gerar options do datalist
+        for (int i = 0; i <= value.length - 1; i++) {
+
+            sb.append("<option ");
+            sb.append("value=\"");
+            sb.append(value[i]);
+            sb.append("\">");
+            sb.append(value[i]);
+            sb.append("</option>");
+        }//fim da iteração
+        sb.append("</datalist>");
+        return sb.toString();
+    }
+    
+       
+    
+    
     
     public String create(Class classBean, String method, String action) {
 

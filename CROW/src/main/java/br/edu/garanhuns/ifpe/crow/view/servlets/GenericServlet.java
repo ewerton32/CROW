@@ -46,6 +46,7 @@ public class GenericServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         Class usedBean = (Class)session.getAttribute("usedBean");
+        
         CrowActionController usedController = (CrowActionController)session.getAttribute("usedController");
         
         response.setContentType("text/html;charset=UTF-8");
