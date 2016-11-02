@@ -10,6 +10,8 @@ import br.edu.garanhuns.ifpe.crow.interfaces.CrowActionController;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -56,7 +58,9 @@ public class GenericServlet extends HttpServlet {
         
         StringBuilder sb = new StringBuilder();
         
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Gleydson\\Documents\\NetBeansProjects\\CROW\\CROW\\src\\main\\resources\\META-INF\\resources\\templates\\crud.ftlh"));
+        InputStream in = getClass().getResourceAsStream("/META-INF/resources/templates/crud.ftlh");
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
         while (br.ready()) {
             String linha = br.readLine();

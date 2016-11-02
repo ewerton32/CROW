@@ -5,6 +5,8 @@ import br.edu.garanhuns.ifpe.crow.interfaces.CrowActionController;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -52,7 +54,9 @@ public class BasicCrud extends SimpleTagSupport {
         
         StringBuilder sb = new StringBuilder();
         
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Gleydson\\Documents\\NetBeansProjects\\CROW\\CROW\\src\\main\\resources\\META-INF\\resources\\templates\\crud.ftlh"));
+        InputStream in = getClass().getResourceAsStream("/META-INF/resources/templates/crud.ftlh");
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
         while (br.ready()) {
             String linha = br.readLine();
