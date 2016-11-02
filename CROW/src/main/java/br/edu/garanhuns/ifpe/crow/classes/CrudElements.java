@@ -74,8 +74,7 @@ public class CrudElements<T> {
 
         return sb.toString();
     }
-<<<<<<< HEAD
-    
+ 
     
     private String select(String name, String form_id, String[] value, String label) {
         StringBuilder sb = new StringBuilder();
@@ -95,16 +94,13 @@ public class CrudElements<T> {
             sb.append(value[i]);
             sb.append("</option>");
         }//fim da iteração
-        sb.append("\">");
+        sb.append("</select>");
         return sb.toString();
     }
     
     
-    public String create(Class classBean,String method,String action){
-=======
-
     public String create(Class classBean, String method, String action) {
->>>>>>> c35771ce7a6fcb3eee88167ee31f1e1f42327f9d
+
         String m;
         m = method.isEmpty() ? CrudElements.POST : method;
 
