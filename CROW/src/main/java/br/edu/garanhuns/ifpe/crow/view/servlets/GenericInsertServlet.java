@@ -5,6 +5,7 @@
  */
 package br.edu.garanhuns.ifpe.crow.view.servlets;
 
+import br.edu.garanhuns.ifpe.crow.classes.StringUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
@@ -74,7 +75,7 @@ public class GenericInsertServlet extends HttpServlet {
                             } catch (InvocationTargetException ex) {
                                 ex.printStackTrace();
                             }
-                        }else{
+                        }else if(m.getParameterTypes()[0].getTypeName().contains("String")){
                             try {
                                 m.invoke(objectBean, p.split(":")[1]);
                             } catch (IllegalAccessException ex) {
@@ -84,6 +85,28 @@ public class GenericInsertServlet extends HttpServlet {
                             } catch (InvocationTargetException ex) {
                                 Logger.getLogger(GenericInsertServlet.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        }else{
+                            try {
+                                String parserName = "parse"+StringUtil.upperCaseFirst(m.getParameterTypes()[0].getTypeName());
+                                Class tipo = Class.forName("java.lang."+StringUtil.upperCaseFirst(m.getParameterTypes()[0].getTypeName()));
+                                Class[] parseParam = {String.class};
+                                Method parserMethod = tipo.getMethod(parserName,parseParam);
+                                Object parametro = parserMethod.invoke(tipo,p.split(":")[1]);
+                                m.invoke(objectBean, parametro);
+                            } catch (ClassNotFoundException ex) {
+                                Logger.getLogger(GenericInsertServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (NoSuchMethodException ex) {
+                                Logger.getLogger(GenericInsertServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SecurityException ex) {
+                                Logger.getLogger(GenericInsertServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IllegalAccessException ex) {
+                                Logger.getLogger(GenericInsertServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IllegalArgumentException ex) {
+                                Logger.getLogger(GenericInsertServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (InvocationTargetException ex) {
+                                Logger.getLogger(GenericInsertServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
                         }
                     }
                 }
