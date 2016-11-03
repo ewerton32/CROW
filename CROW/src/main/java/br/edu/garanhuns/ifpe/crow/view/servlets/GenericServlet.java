@@ -17,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Startup;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +32,8 @@ import javax.servlet.jsp.JspWriter;
  */
 
 @WebServlet(name = "GenericServlet", urlPatterns = {"/GenericList"})
+//A anotação abaixo força a inicialização antecipada do container
+@Startup
 public class GenericServlet extends HttpServlet {
 
     /**
