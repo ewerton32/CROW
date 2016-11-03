@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import javax.ejb.Startup;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -20,6 +21,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  *
  * @author 1860915
  */
+//A anotação abaixo força a inicialização antecipada do container
+@Startup
 public class BasicCrud extends SimpleTagSupport {
 
     private String usedBean;
