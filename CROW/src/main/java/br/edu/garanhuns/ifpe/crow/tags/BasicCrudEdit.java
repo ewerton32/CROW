@@ -106,6 +106,15 @@ public class BasicCrudEdit extends SimpleTagSupport{
         
         for (Field f : fields) {
             try {
+                if (f.getType().equals(boolean.class)){
+                    out.print(f.getName()
+                        + ": <input type='text' name='"
+                        + f.getName()
+                        + "' value='"
+                        + beanInstance.getClass().getMethod("is"+StringUtil.upperCaseFirst(f.getName()), paramsClassesEmpty)
+                                .invoke(beanInstance, paramsNull)
+                        +"'/><br/>");
+                } else {
                 out.print(f.getName()
                         + ": <input type='text' name='"
                         + f.getName()
@@ -113,6 +122,7 @@ public class BasicCrudEdit extends SimpleTagSupport{
                         + beanInstance.getClass().getMethod("get"+StringUtil.upperCaseFirst(f.getName()), paramsClassesEmpty)
                                 .invoke(beanInstance, paramsNull)
                         +"'/><br/>");
+                }
             } catch (NoSuchMethodException ex) {
                 Logger.getLogger(BasicCrudEdit.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SecurityException ex) {

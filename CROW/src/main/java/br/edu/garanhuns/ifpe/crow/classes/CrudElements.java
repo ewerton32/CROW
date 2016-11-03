@@ -13,6 +13,7 @@ package br.edu.garanhuns.ifpe.crow.classes;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -329,7 +330,12 @@ public class CrudElements<T> {
         Field[] fields = classBean.getDeclaredFields();
         for (Field f : fields) {
             try {
-                Method meth = classBean.getMethod("get" + StringUtil.upperCaseFirst(f.getName()));
+                Method meth = null;
+                if (f.getType().equals(boolean.class)){
+                    meth = classBean.getMethod("is" + StringUtil.upperCaseFirst(f.getName()));
+                } else {
+                    meth = classBean.getMethod("get" + StringUtil.upperCaseFirst(f.getName()));
+                }
                 String value = String.valueOf(meth.invoke(objectBean)).equals("null") ? "" : String.valueOf(meth.invoke(objectBean));
 
                 sb.append(this.input(f.getName(), CrudElements.TEXT, value, f.getName()));
@@ -385,7 +391,12 @@ public class CrudElements<T> {
             for (String atributte : atributtes) {
                 Method meth;
                 try {
-                    meth = classBean.getMethod("get" + StringUtil.upperCaseFirst(atributte));
+                    Field tipoSet = classBean.getDeclaredField(atributte);
+                    if(tipoSet.getType().equals(boolean.class)){
+                        meth = classBean.getMethod("is" + StringUtil.upperCaseFirst(atributte));
+                    } else {
+                        meth = classBean.getMethod("get" + StringUtil.upperCaseFirst(atributte));
+                    }
                     String value = String.valueOf(meth.invoke(objectBean)).equals("null") ? "" : String.valueOf(meth.invoke(objectBean));
 
                     sb.append("<td>");
@@ -394,6 +405,8 @@ public class CrudElements<T> {
                 } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                     Logger.getLogger(CrudElements.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (NoSuchMethodException ex) {
+                    Logger.getLogger(CrudElements.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NoSuchFieldException ex) {
                     Logger.getLogger(CrudElements.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
